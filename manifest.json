@@ -5,6 +5,11 @@
     "src": "icon.png",
       "sizes": "128x128",
       "type": "image/png"
+    },
+    {
+    "src": "140.png",
+      "sizes": "140x140",
+      "type": "image/png"
     }
     ],
   "start_url": "/aldy_pay",
