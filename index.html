@@ -1,0 +1,137 @@
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+
+<body>
+    <main>
+        <img class="card_image" src="aldy.png">
+
+        <div class="pointDisplayContainer">
+            <p class="pointDisplayContainer__point">100</p>
+            <p class="pointDisplayContainer__text">ポイント</p>
+
+            <a href="/" class=""><p class="pointDisplayContainer__reload">更新する</p></a>
+            <a class="js-usePoint"><p class="pointDisplayContainer__use">使う</p></a>
+        </div>
+
+
+        <div class="modalContaienr" style="display: none">
+            <div class="modal">
+                <div class="modalHeader">
+                    買い物リスト
+                </div>
+                <div>
+                    <div>
+                        <div>あああ</div>
+                        <div>あああ</div>
+                        <div>あああ</div>
+                        <div>あああ</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+<style>
+    
+    .modalHeader {
+        height: 50px;
+        line-height: 100%;
+    }
+    
+    .modalContaienr {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #4444;
+        padding-top: 30px;
+    }
+    
+    .modal {
+        width: 80%;
+        background: white;
+        border-radius: 10px;
+        margin: auto;
+    }
+    
+    main {
+        padding-left: 20px;
+        padding-right: 20px;
+        text-align: center;
+        padding-top: 100px;
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    .card_image {
+         width: 80%;
+    }
+    
+    .pointDisplayContainer {
+        width: 100%;
+    
+    }
+    
+    .pointDisplayContainer__point {
+        text-align: center;
+        font-size: 100px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    
+    .pointDisplayContainer__text {
+        text-align: center;
+        font-size: 40px;
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+    
+    .pointDisplayContainer__reload {
+        text-align: center;
+        color: white;
+        border-radius: 20px;
+        background: red;
+        line-height: 2em;
+        font-size: 50px;
+        font-weight: bold;
+        padding: 20px 30px;
+        text-decoration: none;
+        width: 50%;
+        margin: auto;
+        margin-bottom: 50px;
+        
+    }
+    
+    .pointDisplayContainer__use {
+        text-align: center;
+        color: white;
+        border-radius: 20px;
+        background: blue;
+        line-height: 2em;
+        font-size: 50px;
+        font-weight: bold;
+        padding: 20px 30px;
+        text-decoration: none;
+        width: 50%;
+        margin: auto;
+        
+    }
+    
+</style>
+
+<script>
+    $(".js-usePoint").on("click", function() {
+        
+    });
+</script>
+    
+</body>
+
+
+
