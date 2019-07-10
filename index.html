@@ -14,26 +14,51 @@
         <img class="card_image" src="aldy.png">
 
         <div class="pointDisplayContainer">
-            <p class="pointDisplayContainer__point">100</p>
+            <p class="pointDisplayContainer__point js-point">100</p>
             <p class="pointDisplayContainer__text">あるでぃ Pay</p>
 
-            <a href="/" class=""><p class="pointDisplayContainer__reload">更新する</p></a>
+            <a class="">
+                <p class="pointDisplayContainer__reload js-reload">更新する</p>
+            </a>
             <a class="js-usePoint"><p class="pointDisplayContainer__use">使う</p></a>
         </div>
 
 
-        <div class="modalContaienr" style="display: none">
+        <div class="modalContaienr" id="js-modalContainer" style="display: none">
             <div class="modal">
                 <div class="modalHeader">
-                    買い物リスト
+                    <p class="modalHeader__title">あるゾン リスト</p>
                 </div>
                 <div>
-                    <div>
-                        <div>あああ</div>
-                        <div>あああ</div>
-                        <div>あああ</div>
-                        <div>あああ</div>
+                    <div class="productList">
+                        <div class="productList__item">
+                            <div class="productInfo">
+                                <p class="productInfo__name">アイス奢り 10あるでぃpay</p>
+                            </div>
+                            <div class="productSelectBtn">
+                                <input class="productSelectBtn__input" type="radio" id="1411" name="id" value="1411" checked="">
+                                <label class="productSelectBtn__label" for="1411"></label>
+                            </div>
+                        </div>
+                        
+                        <div class="productList__item">
+                            <div class="productInfo">
+                                <p class="productInfo__name">アイス奢り 10あるでぃpay</p>
+                            </div>
+                            <div class="productSelectBtn">
+                                <input class="productSelectBtn__input" type="radio" id="1412" name="id" value="1411" checked="">
+                                <label class="productSelectBtn__label" for="1412"></label>
+                            </div>
+                        </div>
+                        
                     </div>
+                    
+                    <div class="productSelectBottom">
+                        <button class="productSelectBottom__submitBtn js-buySubmit" type="submit">購入する</button>
+                        <button class="productSelectBottom__closeBtn" onclick="document.getElementById('js-modalContainer').style.display='none'" type="button">閉じる</button>
+                    </div>
+                    
+                    
                 </div>
             </div>
         </div>
@@ -41,10 +66,108 @@
     
 <style>
     
+    .productSelectBottom {
+        padding: 50px 60px 30px;
+        
+    }
+    
+    .productSelectBottom__submitBtn {
+        border-radius: 8px;
+        display: block;
+        border: none;
+        line-height: 100px;
+        background: #ff4772;
+        font-size: 45px;
+        color: #fff;
+        font-weight: 700;
+        width: 100%;
+        text-align: center;
+        transition: .3s;
+        margin-bottom: 50px;
+    }
+    
+    .productSelectBottom__closeBtn {
+        border-radius: 8px;
+        display: block;
+        border: 1px solid #eaeaea;
+        line-height: 90px;
+        background: #fff;
+        font-size: 40px;
+        color: #646464;
+        font-weight: 700;
+        width: 60%;
+        text-align: center;
+        transition: .3s;
+        margin: 0 auto;
+    }
+    
+    .productSelectBtn {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+        border-radius: 100%;
+        position: relative;
+        box-shadow: 0 1px 3px rgba(0,0,0,.5);
+    }
+    
+    .productSelectBtn__input {
+        visibility: hidden;
+    }
+    
+    .productSelectBtn__label {
+        display: block;
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        transition: .3s;
+        cursor: pointer;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        z-index: 1;
+    }
+    
+    .productSelectBtn__input:checked+label {
+        background: #ff4772;
+    }
+    
+    .productInfo {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 60px);
+        height: 150px;
+        position: relative;
+        transition: .3s;
+    }
+    
+    .productInfo__name {
+        padding-left: 16px;
+        padding-right: 16px;
+        font-size: 40px;
+        display: block;
+        word-break: break-all;
+        width: calc(100% - 72px);
+    }
+    
+    .productList__item {
+        padding: 0 40px 20px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #ebe8e4;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
     
     .modalHeader {
-        height: 50px;
-        line-height: 100%;
+        padding: 10px;
+        position: relative;
+        border-bottom: 1px solid #ebe8e4;
+    }
+    
+    .modalHeader__title {
+        font-size: 50px;
+        font-weight: 700;
+        text-align: center;
     }
     
     .modalContaienr {
@@ -54,7 +177,7 @@
         width: 100%;
         height: 100%;
         background: #4444;
-        padding-top: 30px;
+        padding-top: 100px;
     }
     
     .modal {
@@ -134,8 +257,42 @@
 
 <script>
     $(".js-usePoint").on("click", function() {
-        
+        $("#js-modalContainer").css("display", "block");
     });
+    
+    $(".js-reload").on("click", function(){
+         $.ajax('/getPoint', {
+            type: 'get',
+            dataType: 'json'
+          })
+        .done(function(data) {
+             var point = data.point;
+             $(".js-point").text(point);
+             alert("更新されました");
+         });
+    }); 
+    
+    $(".js-buySubmit").on("click", function() {
+        var product_id = $("[name='id']").val();
+        if (product_id == "") {
+            alert("商品が選択されていません。");
+            return;
+        }
+        buy(product_id);
+    });
+    
+    function buy(product_id) {
+        $.ajax('/buy', {
+            type: 'post',
+            data: {id: product_id},
+            dataType: 'json'
+          })
+        .done(function(data) {
+             var point = data.point;
+             $(".js-point").text(point);
+             alert("購入が完了しまいた。");
+         });
+    };
 </script>
     
 </body>
